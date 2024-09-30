@@ -1,0 +1,1 @@
+I am interested in doing my final project on either US or European politics. In particular, I am interested in doing a project on electoral politics results over time and if there are any trends that arise from the data.
