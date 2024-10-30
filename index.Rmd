@@ -11,5 +11,5 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
-EU and or US politics
+I am interested in exploring data related to
+EU and or US politics.
