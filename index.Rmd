@@ -11,5 +11,6 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to
-EU and or US politics.
+Milestone 1: I am interested in doing my final project on either US or European politics. In particular, I am interested in doing a project on electoral politics results over time and determining if any trends arise from the data.
+
+Milestone 2: Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Brtiain from ceratin European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted "Remain" from voting for them as it would go against their preferences stay more allinged with the EU. The explanatory variable is each of the UK's constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.
