@@ -14,3 +14,42 @@ Milestone 1: I am interested in doing my final project on either US or European 
 Milestone 2: Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted "Remain" from voting for them as it would go against their preferences stay more allinged with the EU. The explanatory variable is each of the UK's constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.
 
 ## Milestone 3
+
+```{r}
+library(tidyverse)
+
+X2024_Brexit_Results <- read_csv("data/2024_Brexit_Results.csv")
+
+HoC_GE2024_results_by_constituency <- read_csv("data/HoC-GE2024-results-by-constituency.csv")
+
+UK_election_results <- HoC_GE2024_results_by_constituency
+
+UK_election_results
+
+Brexit_2024_results <- X2024_Brexit_Results
+```
+
+
+```{r}
+England_results <- UK_election_results |>
+  filter(`Country name` == "England") |>
+  mutate(Reform_share = `RUK` / `Valid votes`)
+
+England_results <- England_results |>
+  rename(Constituen = `Constituency name`)
+
+England_results <- England_results |>
+  left_join(Brexit_2024_results)
+
+England_results |>
+  filter(Reform_share > 0) |>
+ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
+  geom_point(color = "turquoise4", alpha = .5) +
+  geom_smooth(color = "indianred", se = FALSE) +
+  labs(
+    x = "Vote Leave Percentage",
+    y = "Reform UK 2024 Vote Share",
+  title = "Brexit and Reform Vote Share England"
+  )
+```
+
