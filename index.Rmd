@@ -49,7 +49,7 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   labs(
     x = "Vote Leave Percentage",
     y = "Reform UK 2024 Vote Share",
-  title = "Brexit and Reform Vote Share England"
+  title = "Brexit Referendum and Reform 2024 Vote Share England"
   )
 ```
 
