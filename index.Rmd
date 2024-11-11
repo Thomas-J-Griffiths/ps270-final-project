@@ -53,20 +53,3 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   )
 ```
 
-Now let's try 2019 Results
-```{r}
-
-
-UK_Election_2019 <- read.csv("data/2019 UK Election Results.xlsx")
-
-England_results_2019 <- UK_Election_2019 |>
-  filter(country_name == "England") |>
-  rename(Constituen = `Boundary Comm name`) |>
-  rename(BRX_share = `BRX%`,
-         Con_share = `CON%`,
-         LD_share = `LD%`,
-         Lab_share = `LAB%`) |>
-   left_join(Brexit_2024_results)
-
-England_results_2019
-```
