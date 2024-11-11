@@ -55,7 +55,9 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
 
 Now let's try 2019 Results
 ```{r}
-UK_Election_2019 <- X2019_UK_Election_Results
+
+
+UK_Election_2019 <- read.csv("data/2019 UK Election Results.xlsx")
 
 England_results_2019 <- UK_Election_2019 |>
   filter(country_name == "England") |>
