@@ -89,7 +89,7 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Con_share)) +
 
 ## Milestone 4
 
-From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, being the average increase in Reform vote share for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around .21, being the average increase in Conservative vote share for each percent increase in the share for vote leave. 
+From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, which indicates that the average increase in Reform vote share is around 1.18% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around .21, indicating that the average increase in Conservative vote share is around .21% for each percent increase in the share for vote leave holding Reform UK vote share fixed. 
 
 ```{r}
 Reform_Con_mult <- lm(LeavePct ~ Reform_share + Con_share , data = England_results)
