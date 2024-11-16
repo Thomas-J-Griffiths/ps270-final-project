@@ -28,12 +28,14 @@ UK_election_results
 
 Brexit_2024_results <- X2024_Brexit_Results
 ```
-
+## 2024 Reform Vote Share and Vote Leave Plot
 
 ```{r}
 England_results <- UK_election_results |>
   filter(`Country name` == "England") |>
-  mutate(Reform_share = `RUK` / `Valid votes`)
+  mutate(Reform_share = `RUK` / `Valid votes`,
+         Con_share = `Con` / `Valid votes`
+          )
 
 England_results <- England_results |>
   rename(Constituen = `Constituency name`)
@@ -50,6 +52,47 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
     x = "Vote Leave Percentage",
     y = "Reform UK 2024 Vote Share",
   title = "Brexit Referendum and Reform 2024 Vote Share England"
-  )
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Henretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
 ```
 
+## 2024 Conservative Vote Share and Vote Leave Plot
+
+```{r}
+England_results |>
+  filter(Reform_share > 0) |>
+ggplot(data = England_results, mapping = aes(x = LeavePct, y = Con_share)) +
+  geom_point(color = "turquoise4", alpha = .5) +
+  geom_smooth(color = "indianred", se = FALSE) +
+  labs(
+    x = "Vote Leave Percentage",
+    y = "Conservative Party 2024 Vote Share",
+  title = "Brexit Referendum and 2024 Conservative Party Vote Share England"
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Henretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
+```
+
+
+## Milestone 4
+
+From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, being the average increase in Reform vote share for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around .21, being the average increase in Conservative vote share for each percent increase in the share for vote leave. 
+
+```{r}
+Reform_Con_mult <- lm(LeavePct ~ Reform_share + Con_share , data = England_results)
+  
+Reform_Con_mult
+```
