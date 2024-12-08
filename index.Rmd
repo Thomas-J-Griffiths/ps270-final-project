@@ -217,8 +217,12 @@ Is there a relationship between how people voted in the 2016 Brexit Referendum i
 
 The data for this project came from Dr. Henretty, who created a dataset that estimated how each constituency (post-2023 borders) voted in the Brexit referendum. The 2024 general election data came from the House of Commons Library.
 
-The project's variables are measured using a statistical model The independent variable for this project is the election, specifially between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK and the Conservatives.
+The project's variables are measured using a statistical model The independent variable for this project is the election, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK and the Conservatives.
 
-Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted "Remain" from voting for them as it would go against their preferences stay more allinged with the EU. The explanatory variable is each of the UK's constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.
+Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted "Remain" from voting for them as it would go against their preferences stay more aligned with the EU. The explanatory variable is each of the UK's constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.
+
+## Conlusion
+
+In conclusion, the data supports the hypotehsis that there is a realtionship between how people voted in the Brexit referndum and the general election.
 
 
