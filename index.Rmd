@@ -30,29 +30,49 @@ UK_election_results
 Brexit_2024_results <- X2024_Brexit_Results
 
 
-election_results_2019 <- read.csv("data/2019 UK Election Results.csv")
+
+UK_election_results_2019 <- read.csv("data/2019 UK Election Results.csv")
 
 ```
 
 
-## 2019 Election Results
+## 2019 Conservative Party and Vote Leave Plot
 
 ```{r}
-England_results_2019 <- UK_election_results
+England_results_2019 <- UK_election_results_2019 |>
+  filter(country_name == "England")
+
+England_results_2019 <- England_results_2019 |> 
+  rename(Constituen = Boundary.Comm.name)
+
+England_results_2019 <- England_results_2019 |>
+  left_join(Brexit_2024_results)
+
+England_results_2019 |>
+   filter(CON. > 0) |>
+ggplot(data = England_results_2019, mapping = aes(x = LeavePct, y = CON.)) +
+  geom_point(color = "turquoise4", alpha = .5) +
+  geom_smooth(color = "indianred", se = FALSE) +
+  labs(
+    x = "Vote Leave Percentage",
+    y = "Conservative Party 2019 Vote Share",
+  title = "Brexit Referendum and Conservative Party 2019 Vote Share England"
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Henretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
 ```
 
-
-
-
-
-## 2024 Reform Vote Share and Vote Leave Plot
+## 2024 Conservative Vote Share and Vote Leave Plot
 
 ```{r}
 England_results <- UK_election_results |>
-  filter(`Country name` == "England") |>
-  mutate(Reform_share = `RUK` / `Valid votes`,
-         Con_share = `Con` / `Valid votes`
-          )
+  filter(`Country name` == "England")
 
 England_results <- England_results |>
   rename(Constituen = `Constituency name`)
@@ -60,6 +80,64 @@ England_results <- England_results |>
 England_results <- England_results |>
   left_join(Brexit_2024_results)
 
+England_results <- England_results |>
+  mutate(
+    Con_share = Con / `Valid votes`,
+Reform_share = RUK / `Valid votes`,
+LD_share = LD / `Valid votes`
+)
+         
+
+
+England_results |>
+  filter(Reform_share > 0) |>
+ggplot(data = England_results, mapping = aes(x = LeavePct, y = Con_share)) +
+  geom_point(color = "turquoise4", alpha = .5) +
+  geom_smooth(color = "indianred", se = FALSE) +
+  labs(
+    x = "Vote Leave Percentage",
+    y = "Conservative Party 2024 Vote Share",
+  title = "Brexit Referendum and 2024 Conservative Party Vote Share England"
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Henretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
+```
+
+
+## 2019 Brexit Party Vote Share and Vote Leave Plot
+
+```{r}
+England_results_2019 |>
+   filter(BRX. > 0) |>
+ggplot(data = England_results_2019, mapping = aes(x = LeavePct, y = BRX.)) +
+  geom_point(color = "turquoise4", alpha = .5) +
+  geom_smooth(color = "indianred", se = FALSE) +
+  labs(
+    x = "Vote Leave Percentage",
+    y = "Brexit Party 2019 Vote Share",
+  title = "Brexit Referendum and Brexit Party 2019 Vote Share England"
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Henretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
+
+```
+
+
+## 2024 Reform Vote Share and Vote Leave Plot
+
+```{r}
 England_results |>
   filter(Reform_share > 0) |>
 ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
@@ -80,18 +158,33 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   theme_minimal()
 ```
 
-## 2024 Conservative Vote Share and Vote Leave Plot
+
+
+## Brexit and Conservative Party Linear Models
 
 ```{r}
-England_results |>
-  filter(Reform_share > 0) |>
-ggplot(data = England_results, mapping = aes(x = LeavePct, y = Con_share)) +
+BRX_Con_2019_mult <- lm(LeavePct ~ BRX. + CON., data = England_results_2019)
+
+
+```
+```{r}
+lm(LeavePct ~ Reform_share + Con_share, data = England_results)
+```
+
+
+
+## 2019 Liberal Democracts and Vote Remain Plot
+
+```{r}
+England_results_2019 |>
+   filter(LD. > 0) |>
+ggplot(data = England_results_2019, mapping = aes(x = LeavePct, y = LD.)) +
   geom_point(color = "turquoise4", alpha = .5) +
   geom_smooth(color = "indianred", se = FALSE) +
   labs(
     x = "Vote Leave Percentage",
-    y = "Conservative Party 2024 Vote Share",
-  title = "Brexit Referendum and 2024 Conservative Party Vote Share England"
+    y = "Conservative Party 2019 Vote Share",
+  title = "Brexit Referendum and Liberal Democrat 2019 Vote Share England"
   ) +
    annotate(
     "text", 
@@ -101,6 +194,8 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Con_share)) +
     size = 3, color = "gray20", fontface = "italic"
   ) +
   theme_minimal()
+
+lm(LeavePct ~ LD., data = England_results_2019)
 ```
 
 

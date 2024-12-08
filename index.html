@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["Data/2019 UK Election Results.csv","Data/2024_Brexit_Results.csv","Data/HoC-GE2024-results-by-constituency.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/colorschememapping.xml","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/filelist.xml","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.28/header-attrs.js","index_files/header-attrs-2.29/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/themedata.thmx","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Data/2019 UK Election Results.csv","Data/2024_Brexit_Results.csv","Data/HoC-GE2024-results-by-constituency.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/colorschememapping.xml","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/filelist.xml","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.28/header-attrs.js","index_files/header-attrs-2.29/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/themedata.thmx","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1584,39 +1584,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Brexit_2024_results</span> <span class='op'>&lt;-</span> <span class='va'>X2024_Brexit_Results</span></span>
 <span></span>
 <span></span>
-<span><span class='va'>election_results_2019</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"data/2019 UK Election Results.csv"</span><span class='op'>)</span></span></code></pre>
+<span></span>
+<span><span class='va'>UK_election_results_2019</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"data/2019 UK Election Results.csv"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<h2 id="election-results">2019 Election Results</h2>
+<h2 id="conservative-party-and-vote-leave-plot">2019 Conservative Party and Vote Leave Plot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results_2019</span> <span class='op'>&lt;-</span> <span class='va'>UK_election_results</span></span></code></pre>
-</div>
-</div>
-<h2 id="reform-vote-share-and-vote-leave-plot">2024 Reform Vote Share and Vote Leave Plot</h2>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>UK_election_results</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`Country name`</span> <span class='op'>==</span> <span class='st'>"England"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Reform_share <span class='op'>=</span> <span class='va'>`RUK`</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
-<span>         Con_share <span class='op'>=</span> <span class='va'>`Con`</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span></span>
-<span>          <span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results_2019</span> <span class='op'>&lt;-</span> <span class='va'>UK_election_results_2019</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country_name</span> <span class='op'>==</span> <span class='st'>"England"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>Constituen <span class='op'>=</span> <span class='va'>`Constituency name`</span><span class='op'>)</span></span>
+<span><span class='va'>England_results_2019</span> <span class='op'>&lt;-</span> <span class='va'>England_results_2019</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>Constituen <span class='op'>=</span> <span class='va'>Boundary.Comm.name</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<span><span class='va'>England_results_2019</span> <span class='op'>&lt;-</span> <span class='va'>England_results_2019</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>Brexit_2024_results</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Reform_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Reform_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span><span class='va'>England_results_2019</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>CON.</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results_2019</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>CON.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
-<span>    y <span class='op'>=</span> <span class='st'>"Reform UK 2024 Vote Share"</span>,</span>
-<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Reform 2024 Vote Share England"</span></span>
+<span>    y <span class='op'>=</span> <span class='st'>"Conservative Party 2019 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Conservative Party 2019 Vote Share England"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
 <span>    <span class='st'>"text"</span>, </span>
@@ -1627,12 +1619,30 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
 <h2 id="conservative-vote-share-and-vote-leave-plot">2024 Conservative Vote Share and Vote Leave Plot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>UK_election_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`Country name`</span> <span class='op'>==</span> <span class='st'>"England"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>Constituen <span class='op'>=</span> <span class='va'>`Constituency name`</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>Brexit_2024_results</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>England_results</span> <span class='op'>&lt;-</span> <span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    Con_share <span class='op'>=</span> <span class='va'>Con</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
+<span>Reform_share <span class='op'>=</span> <span class='va'>RUK</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
+<span>LD_share <span class='op'>=</span> <span class='va'>LD</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span></span>
+<span><span class='op'>)</span></span>
+<span>         </span>
+<span></span>
+<span></span>
+<span><span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Reform_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Con_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1651,7 +1661,107 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<h2 id="brexit-party-vote-share-and-vote-leave-plot">2019 Brexit Party Vote Share and Vote Leave Plot</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results_2019</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>BRX.</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results_2019</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>BRX.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Brexit Party 2019 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Brexit Party 2019 Vote Share England"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
 <p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<h2 id="reform-vote-share-and-vote-leave-plot">2024 Reform Vote Share and Vote Leave Plot</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Reform_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Reform_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Reform UK 2024 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Reform 2024 Vote Share England"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<h2 id="brexit-and-conservative-party-linear-models">Brexit and Conservative Party Linear Models</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>BRX_Con_2019_mult</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>BRX.</span> <span class='op'>+</span> <span class='va'>CON.</span>, data <span class='op'>=</span> <span class='va'>England_results_2019</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>Reform_share</span> <span class='op'>+</span> <span class='va'>Con_share</span>, data <span class='op'>=</span> <span class='va'>England_results</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = LeavePct ~ Reform_share + Con_share, data = England_results)
+
+Coefficients:
+ (Intercept)  Reform_share     Con_share  
+      0.2952        1.1814        0.2148  </code></pre>
+</div>
+<h2 id="liberal-democracts-and-vote-remain-plot">2019 Liberal Democracts and Vote Remain Plot</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>England_results_2019</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>LD.</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>England_results_2019</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>LD.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Conservative Party 2019 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Liberal Democrat 2019 Vote Share England"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>LD.</span>, data <span class='op'>=</span> <span class='va'>England_results_2019</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = LeavePct ~ LD., data = England_results_2019)
+
+Coefficients:
+(Intercept)          LD.  
+   0.585545    -0.004467  </code></pre>
 </div>
 <h2 id="milestone-4">Milestone 4</h2>
 <p>From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, which indicates that the average increase in Reform vote share is around 1.18% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around .21, indicating that the average increase in Conservative vote share is around .21% for each percent increase in the share for vote leave holding Reform UK vote share fixed.</p>
@@ -1675,7 +1785,7 @@ Coefficients:
 <p>The data for this project came from Dr. Henretty, who created a dataset that estimated how each constituency (post-2023 borders) voted in the Brexit referendum. The 2024 general election data came from the House of Commons Library.</p>
 <p>The project’s variables are measured using a statistical model The independent variable for this project is the election, specifially between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK and the Conservatives.</p>
 <p>Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted “Remain” from voting for them as it would go against their preferences stay more allinged with the EU. The explanatory variable is each of the UK’s constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
