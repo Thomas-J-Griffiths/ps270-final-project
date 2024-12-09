@@ -1716,15 +1716,47 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Reform_Con_multreg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>Reform_share</span> <span class='op'>+</span> <span class='va'>Con_share</span>, data <span class='op'>=</span> <span class='va'>England_results</span><span class='op'>)</span></span>
-<span>  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>Reform_Con_multreg</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>Reform_Con_multreg</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>     <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 3 × 5
-  term         estimate std.error statistic   p.value
-  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)     0.295   0.00923     32.0  8.66e-127
-2 Reform_share    1.18    0.0399      29.6  3.88e-115
-3 Con_share       0.215   0.0281       7.65 9.04e- 14</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.295</td>
+<td style="text-align: right;">0.009</td>
+<td style="text-align: right;">31.998</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reform_share</td>
+<td style="text-align: right;">1.181</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">29.599</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Con_share</td>
+<td style="text-align: right;">0.215</td>
+<td style="text-align: right;">0.028</td>
+<td style="text-align: right;">7.654</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
+<h2 id="data-interpretation">Data interpretation</h2>
+<p>We can interpret from the regression model, that we can very confident that there is a relationship between vote leave percentage and the vote share for Reform UK and the Conservative Party. The regression model shows a p-value of approximately 0 for Reform vote share and Conservative Party when holding each others vote share constant.</p>
+<p>From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, which indicates that the average increase in Reform vote share is around 1.18% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around 0.21, indicating that the average increase in Conservative vote share is around 0.21% for each percent increase in the share for vote leave holding Reform UK vote share fixed.</p>
 <h2 id="liberal-democracts-and-vote-remain-plot">2019 Liberal Democracts and Vote Remain Plot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1749,15 +1781,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <img src="index_files/figure-html5/unnamed-chunk-7-1.png" width="624" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>LD.</span>, data <span class='op'>=</span> <span class='va'>England_results_2019</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>LD_2019_multreg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>LD.</span> <span class='op'>+</span> <span class='va'>CON.</span>, data <span class='op'>=</span> <span class='va'>England_results_2019</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>LD_2019_multreg</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>
-Call:
-lm(formula = LeavePct ~ LD., data = England_results_2019)
-
-Coefficients:
-(Intercept)          LD.  
-   0.585545    -0.004467  </code></pre>
+<pre><code># A tibble: 3 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)  0.405    0.0107        38.0 2.70e-154
+2 LD.         -0.00530  0.000337     -15.7 4.84e- 46
+3 CON.         0.00407  0.000211      19.3 1.32e- 63</code></pre>
 </div>
 <h2 id="milestone-4">Milestone 4</h2>
 <p>From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, which indicates that the average increase in Reform vote share is around 1.18% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around .21, indicating that the average increase in Conservative vote share is around .21% for each percent increase in the share for vote leave holding Reform UK vote share fixed.</p>
@@ -1776,14 +1808,15 @@ Coefficients:
       0.2952        1.1814        0.2148  </code></pre>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? This hypothesis is intriguing as much of the Conservative Party and the Reform Party (formally the Brexit Party) campaigned for the UK to leave the EU in the 2016 Brexit referendum. As such, seeing how voters in each constituency voted in the Brexit referendum compared to how they voted in the general election could give interesting insight into the relationship between Brexit and party vote share. It could also help explain voting patterns in the elections and why voters chose certain parties based o</p>
+<p>Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? This hypothesis is intriguing as much of the Conservative Party and the Reform Party (formally the Brexit Party) campaigned for the UK to leave the EU in the 2016 Brexit referendum. As such, seeing how voters in each constituency voted in the Brexit referendum compared to how they voted in the general election could give interesting insight into the relationship between Brexit and party vote share. It could also help explain voting patterns in the elections and why voters chose certain parties based on how they voted in the referendum.</p>
+<p>This question is important because the Brexit referendum was a hugely consequential eleciton in the UK and Europe as a whole, begining the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subequent elections to get a better understanding of the British electorate and how Brexit could still be affecting British politics.</p>
 <h2 id="data">Data</h2>
 <p>The data for this project came from Dr. Henretty, who created a dataset that estimated how each constituency (post-2023 borders) voted in the Brexit referendum. The 2024 general election data came from the House of Commons Library.</p>
 <p>The project’s variables are measured using a statistical model The independent variable for this project is the election, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK and the Conservatives.</p>
 <p>Constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK party in the 2024 general election. Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU while discouraging people that voted “Remain” from voting for them as it would go against their preferences stay more aligned with the EU. The explanatory variable is each of the UK’s constituencies. The outcome variable is the vote share for Leave in the Brexit Referendum and the vote share for Reform UK in each constituency. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election.</p>
 <h2 id="conlusion">Conlusion</h2>
 <p>In conclusion, the data supports the hypotehsis that there is a realtionship between how people voted in the Brexit referndum and the general election.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

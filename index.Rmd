@@ -165,10 +165,16 @@ ggplot(data = England_results, mapping = aes(x = LeavePct, y = Reform_share)) +
 
 ```{r}
 Reform_Con_multreg <- lm(LeavePct ~ Reform_share + Con_share, data = England_results)
-  tidy(Reform_Con_multreg)
+  tidy(Reform_Con_multreg) |>
+     knitr::kable(digits = 3)
+
 ```
 
+## Data interpretation
 
+We can interpret from the regression model, that we can very confident that there is a relationship between vote leave percentage and the vote share for Reform UK and the Conservative Party. The regression model shows a p-value of approximately 0 for Reform vote share and Conservative Party when holding each others vote share constant.
+
+From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.18, which indicates that the average increase in Reform vote share is around 1.18% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around 0.21, indicating that the average increase in Conservative vote share is around 0.21% for each percent increase in the share for vote leave holding Reform UK vote share fixed. 
 
 
 ## 2019 Liberal Democracts and Vote Remain Plot
@@ -193,7 +199,8 @@ ggplot(data = England_results_2019, mapping = aes(x = LeavePct, y = LD.)) +
   ) +
   theme_minimal()
 
-lm(LeavePct ~ LD., data = England_results_2019)
+LD_2019_multreg <- lm(LeavePct ~ LD. + CON., data = England_results_2019)
+  tidy(LD_2019_multreg)
 ```
 
 
@@ -209,7 +216,9 @@ Reform_Con_mult
 
 ## Introduction
 
-Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? This hypothesis is intriguing as much of the Conservative Party and the Reform Party (formally the Brexit Party) campaigned for the UK to leave the EU in the 2016 Brexit referendum. As such, seeing how voters in each constituency voted in the Brexit referendum compared to how they voted in the general election could give interesting insight into the relationship between Brexit and party vote share. It could also help explain voting patterns in the elections and why voters chose certain parties based o 
+Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? This hypothesis is intriguing as much of the Conservative Party and the Reform Party (formally the Brexit Party) campaigned for the UK to leave the EU in the 2016 Brexit referendum. As such, seeing how voters in each constituency voted in the Brexit referendum compared to how they voted in the general election could give interesting insight into the relationship between Brexit and party vote share. It could also help explain voting patterns in the elections and why voters chose certain parties based on how they voted in the referendum.
+
+This question is important because the Brexit referendum was a hugely consequential eleciton in the UK and Europe as a whole, begining the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subequent elections to get a better understanding of the British electorate and how Brexit could still be affecting British politics.  
 
 ## Data
 
