@@ -1545,13 +1545,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="introduction">Introduction</h2>
 <p>During the 2024 general election in the UK, Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU in the Brexit Referendum while discouraging people that voted “Remain” from voting for them as it would go against their preferences stay more aligned with the EU. The Conservatives ran on similar issues on reducing immigration with some members arguing for the withdraw from European institutions, although to a lesser extent and more moderate. Many of their members also campaigned for leaving the EU during the referendum, which, like Reform UK, would appeal to areas that largely voted to leave the EU.</p>
-<p>The Liberal Democrats, on the other hand, campaigned for Remain during the referendum and during the election supported the UK eventually rejoining the EU. This would have the opposite effect of Reform UK and the Conservatives in constituencies that largely voted for Leave, with those constituencies not having much support for the Liberal Democrats. Instead, the Liberal Democrats pro-EU policies would appeal to areas that had a lower share that voted for Leave.</p>
-<p>Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? For this question, I hypothesis that constituencies that had a higher vote share for Leave in the Brexit Referendum had a higher vote share for the Reform UK and Conservative party in the 2024 general election. Also, I hypothesis that the constituencies that had a higher vote share for Leave will have a lower vote share for the Liberal Democrats in the election.</p>
+<p>The Liberal Democrats and Greens, on the other hand, campaigned for Remain during the referendum and during the election supported the UK rejoining EU institutions and eventually rejoining the EU. These party positions would have the opposite effect of Reform UK and the Conservatives in constituencies that largely voted for leave, with those constituencies not having much support for the Liberal Democrats. Instead, the Liberal Democrats and Greens pro-EU policies would appeal to areas that had a lower share that voted leave.</p>
+<p>Likewise, the Labour Party leaned towards supporting Remain, but to a lesser extent and didn’t support rejoining the EU in the 2024 election. As such, Labour’s more moderate position in the EU wouldn’t have much of an effect in areas that voted leave in the referendum</p>
+<p>Is there a relationship between how people voted in the 2016 Brexit Referendum in the UK and the 2024 UK general election? For this question, I hypothesis that constituencies that had a higher vote share for leave in the Brexit Referendum had a higher vote share for the Reform UK and Conservative party in the 2024 general election. Also, the constituencies that had a higher vote share for leave will have a lower vote share for the Liberal Democrats and Greens. Finally, there isn’t any significant relationship between leave vote share and the vote share for Labour in the election.</p>
 <p>This hypothesis is intriguing as much of the Conservative Party and the Reform Party (formally the Brexit Party) campaigned for the UK to leave the EU in the 2016 Brexit referendum. As such, seeing how voters in each constituency voted in the Brexit referendum compared to how they voted in the general election could give interesting insight into the relationship between Brexit and party vote share. It could also help explain voting patterns in the elections and why voters chose certain parties based on how they voted in the referendum.</p>
 <p>This question is important because the Brexit referendum was a hugely consequential election in the UK and Europe as a whole, beginning the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subsequent elections to get a better understanding of the British electorate and how Brexit could still be affecting British politics.</p>
 <h2 id="data-organization">Data Organization</h2>
 <p>The data for this project came from Dr. Henretty, who created a dataset that estimated how each constituency (post-2023 borders) voted in the Brexit referendum. The 2024 general election data came from the House of Commons Library. The project’s variables are measured using a statistical model The independent variable for this project is the election, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK and the Conservatives. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences.</p>
-<p>The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for Leave in the Brexit Referendum and party vote share in each constituency in the 2024 general election. The hypothesis would be supported if there is a positive correlation between the vote share of Leave in the Brexit Referendum and the vote share of Reform UK and the Conservatives in the 2024 general election as well as if there is a nagetive correlation between vote share of Leave in the referendum and the vote share of the Liberal Democrats in the 2024 election.</p>
+<p>The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and party vote share in each constituency in the 2024 general election. The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK and the Conservatives in the 2024 general election. It would also be supported if there is a negative correlation between vote share of leave in the referendum and the vote share of the Liberal Democrats in the 2024 election and no meaniful realtionship between leave and Labour vote share.</p>
 <h2 id="packages-used">Packages Used</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1589,35 +1590,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>    Con_share <span class='op'>=</span> <span class='va'>Con</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
 <span>Reform_share <span class='op'>=</span> <span class='va'>RUK</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
-<span>LD_share <span class='op'>=</span> <span class='va'>LD</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span></span>
+<span>LD_share <span class='op'>=</span> <span class='va'>LD</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
+<span>PC_share <span class='op'>=</span> <span class='va'>PC</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
+<span>Green_share <span class='op'>=</span> <span class='va'>Green</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span>,</span>
+<span>Lab_share <span class='op'>=</span> <span class='va'>Lab</span> <span class='op'>/</span> <span class='va'>`Valid votes`</span></span>
 <span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="data">Data</h2>
-<p>2024 Conservative Vote Share and Vote Leave Plot</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ENG_WLS_results</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Con_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Con_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
-<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
-<span>    y <span class='op'>=</span> <span class='st'>"Conservative Party 2024 Vote Share"</span>,</span>
-<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and 2024 Conservative Party Vote Share England and Wales"</span></span>
-<span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
-<span>    <span class='st'>"text"</span>, </span>
-<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
-<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
-<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
-<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
-<span>  <span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
-</div>
 <p>2024 Reform Vote Share and Vote Leave Plot</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1640,9 +1620,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>2024 Conservative Vote Share and Vote Leave Plot</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ENG_WLS_results</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Con_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Con_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Conservative Party 2024 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and 2024 Conservative Party Vote Share England and Wales"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
 <p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<p>2024 Liberal Democrats and Vote Remain Plot</p>
+<p>2024 Liberal Democrats Vote Share and Vote Leave Plot</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ENG_WLS_results</span> <span class='op'>|&gt;</span></span>
@@ -1665,6 +1669,54 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<p>2024 Green Vote Share and Vote Leave Plot</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ENG_WLS_results</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Green_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Green_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Green 2024 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Green 2024 Vote Share England and Wales"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+</div>
+<p>2024 Labour Vote Share and Vote Leave Plot</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ENG_WLS_results</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Lab_share</span> <span class='op'>&gt;</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>LeavePct</span>, y <span class='op'>=</span> <span class='va'>Lab_share</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"turquoise4"</span>, alpha <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"indianred"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Vote Leave Percentage"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Labour 2024 Vote Share"</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Brexit Referendum and Labour 2024 Vote Share England and Wales"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"text"</span>, </span>
+<span>    x <span class='op'>=</span> <span class='cn'>Inf</span>, y <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>, </span>
+<span>    label <span class='op'>=</span> <span class='st'>"Sources: Dr Henretty, House of Commons Library"</span>, </span>
+<span>    hjust <span class='op'>=</span> <span class='fl'>1</span>, vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>.25</span>, </span>
+<span>    size <span class='op'>=</span> <span class='fl'>3</span>, color <span class='op'>=</span> <span class='st'>"gray20"</span>, fontface <span class='op'>=</span> <span class='st'>"italic"</span></span>
+<span>  <span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
 <p>Multiple Regression Models</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1708,15 +1760,52 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tbody>
 </table>
 </div>
-<p>Liberal Democrats</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Reform_Con_multreg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>LD_share</span> <span class='op'>+</span> <span class='va'>Con_share</span>, data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>LD_Green_multreg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>LeavePct</span> <span class='op'>~</span> <span class='va'>LD_share</span> <span class='op'>+</span> <span class='va'>Green_share</span>, data <span class='op'>=</span> <span class='va'>ENG_WLS_results</span><span class='op'>)</span></span>
+<span></span>
+<span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>LD_Green_multreg</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>     <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.645</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">84.257</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LD_share</td>
+<td style="text-align: right;">-0.304</td>
+<td style="text-align: right;">0.029</td>
+<td style="text-align: right;">-10.518</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Green_share</td>
+<td style="text-align: right;">-1.047</td>
+<td style="text-align: right;">0.069</td>
+<td style="text-align: right;">-15.125</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h2 id="data-interpretation">Data Interpretation</h2>
 <p>We can interpret from the regression model, that we can very confident that there is a relationship between vote leave percentage and the vote share for Reform UK and the Conservative Party. The regression model shows a p-value of approximately 0 for Reform vote share and Conservative Party when holding each others vote share constant.</p>
-<p>From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.16, which indicates that the average increase in Reform vote share is around 1.16% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around 0.22, indicating that the average increase in Conservative vote share is around 0.22% for each percent increase in the share for vote leave holding Reform UK vote share fixed.</p>
+<p>From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.16 which indicates that the average increase in Reform vote share is around 1.16% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around 0.22, indicating that the average increase in Conservative vote share is around 0.22% for each percent increase in the share for vote leave holding Reform UK vote share fixed.</p>
+<p>For the Liberal Democrats and Green multiple regression, it appears that there is a negative correlation between their vote share and leave vote share. The correlation appears to be stronger for the Greens, having a coefficient around -1.05, indicating that the average decrease in Green vote share is aorund 1.05% for every percent increase in leave vote share holding Liberal Democrat vote share.</p>
 <h2 id="conlusion">Conlusion</h2>
 <p>In conclusion, the data supports the hypothesis’ that</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
