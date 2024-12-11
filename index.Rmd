@@ -99,6 +99,7 @@ ENG_WLS_results |>
   filter(Reform_share > 0) |>
   ggplot(mapping = aes(x = LeavePct)) +
   geom_histogram()
+  
 ```
 
 2024 Reform Vote Share and Vote Leave Plots by Region
@@ -370,16 +371,39 @@ Multiple Regression Model
 
 
 ```{r}
-Reform_multreg <- lm(LeavePct ~ Reform_share + Lab_share + LD_share + Green_share + Con_share, data = Yorkshire_results)
+Region_multreg <- lm(LeavePct ~ Reform_share + Lab_share + LD_share + Green_share + Con_share, data = Yorkshire_results)
 
- tidy(Reform_multreg) |>
+ tidy(Region_multreg) |>
      knitr::kable(digits = 3)
 ```
 
+
+
 ```{r}
-Region_multreg <- lm(LeavePct ~ Reform_share + Con_share + Green_share + LD_share + Lab_share, data = ENG_WLS_results)
+Reform_multreg <- lm(LeavePct ~ Reform_share + Con_share + Green_share + LD_share + Lab_share + PC_share, data = ENG_WLS_results)
 tidy(Region_multreg) |>
      knitr::kable(digits = 3)
+```
+
+
+```{r}
+Reform_multreg <- lm(Reform_share ~ LeavePct, data = ENG_WLS_results)
+summary(Reform_multreg)
+```
+
+```{r}
+London_multreg <- lm(Reform_share ~ LeavePct, data = London_results)
+```
+```{r}
+NW_multreg <- lm(Reform_share ~ LeavePct, data = NW_results)
+
+NE_multreg <- lm(Reform_share ~ LeavePct, data = NE_results)
+
+York_multreg <- lm(Reform_share ~ LeavePct, data = Yorkshire_results)
+
+SW_multreg <- lm(Reform_share ~ LeavePct, data = SW_results)
+
+SE_multreg <- lm(Reform_share ~ LeavePct, data = SE_results)
 ```
 
 
