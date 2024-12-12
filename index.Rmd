@@ -12,13 +12,13 @@ During the 2024 general election in the UK, Reform UK (formally the Brexit Party
 
 Is there a relationship between how people voted in the 2016 Brexit Referendum and how much people voted for Reform UK in the 2024 UK general election? For this question, I hypothesis that constituencies and regions that had a higher vote share for leave in the Brexit Referendum had a higher vote share for the Reform UK in the 2024 general election and that regions that had a higher mean leave vote share will have a higher mean Reform UK vote share.
 
-This question is important because the Brexit referendum was a hugely consequential election in the UK and Europe as a whole, beginning the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subsequent elections to get a better understanding of the British electorate and how Brexit could still be affecting British politics.  
+This question is important because the Brexit referendum was a hugely consequential election in the UK and Europe as a whole, beginning the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subsequent elections to get a better understanding of the British electorate and if issues relating to Brexit could still be affecting British politics.  
 
 ## Data Organization
 
-The data for this project came from Dr. Henretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in all respective constituency. The independent variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK. The study has a difference-in-difference desgin as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after degin because we aren't introducing an intervening treatment variable. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences. The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. 
+The data for this project came from Dr. Henretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in all respective constituency. The independent variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK. The study has a difference-in-difference design as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after design because we aren't introducing an intervening treatment variable. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences. The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. 
 
-The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK and in the 2024 general election and if the regions that had higher leave vote share also have a higher Reform vote share. For this project, the main coefficient of interest in the regression would be ()()()
+The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK and in the 2024 general election and if the regions that had higher leave vote share also have a higher Reform vote share. It will also be supported if there is a positive relationship between Reform and leave share between each region.
 
 
 ## Packages Used 
@@ -69,6 +69,8 @@ Lab_share = Lab / `Valid votes`
 
 ## Data
 
+# England and Wales
+
 2024 Reform Vote Share and Vote Leave Plot for England and Wales
 
 ```{r}
@@ -91,20 +93,19 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression Model between Reform and leave vote share in England and Wales
 
-2024 Reform Vote Share and Vote Leave Histogram for England and Wales
 
 ```{r}
-ENG_WLS_results |>
-  filter(Reform_share > 0) |>
-  ggplot(mapping = aes(x = LeavePct)) +
-  geom_histogram()
-  
+Reform_multreg <- lm(Reform_share ~ LeavePct, data = ENG_WLS_results)
+tidy(Reform_multreg) |>
+     knitr::kable(digits = 3)
 ```
 
-2024 Reform Vote Share and Vote Leave Plots by Region
 
-Northeast
+## 2024 Reform Vote Share and Vote Leave Plots by Region
+
+# Northeast
 
 ```{r}
 NE_results <- ENG_WLS_results |>
@@ -129,8 +130,17 @@ ggplot(data = NE_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in the Northeast
 
-Northwest
+```{r}
+NE_multreg <- lm(Reform_share ~ LeavePct, data = NE_results)
+
+ tidy(NE_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+
+# Northwest
 
 ```{r}
 NW_results <- ENG_WLS_results |>
@@ -155,8 +165,16 @@ ggplot(data = NW_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in North West England
 
-Yorkshire and The Humber
+```{r}
+NW_multreg <- lm(Reform_share ~ LeavePct, data = NW_results)
+
+ tidy(NW_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# Yorkshire and The Humber
 
 ```{r}
 Yorkshire_results <- ENG_WLS_results |>
@@ -181,8 +199,17 @@ ggplot(data = Yorkshire_results, mapping = aes(x = LeavePct, y = Reform_share)) 
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in Yorkshire and The Humber
 
-East Midlands
+```{r}
+Yorkshire_multreg <- lm(Reform_share ~ LeavePct, data = Yorkshire_results)
+
+ tidy(Yorkshire_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+
+# East Midlands
 
 ```{r}
 Eastmid_results <- ENG_WLS_results |>
@@ -207,8 +234,16 @@ ggplot(data = Eastmid_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in the East Midlands
 
-West midlands
+```{r}
+Eastmid_multreg <- lm(Reform_share ~ LeavePct, data = Eastmid_results)
+
+ tidy(Eastmid_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# West Midlands
 
 ```{r}
 Westmid_results <- ENG_WLS_results |>
@@ -233,8 +268,16 @@ ggplot(data = Westmid_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in the West Midlands
 
-East of England
+```{r}
+Westmid_multreg <- lm(Reform_share ~ LeavePct, data = Westmid_results)
+
+ tidy(Westmid_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# East of England
 
 ```{r}
 Easteng_results <- ENG_WLS_results |>
@@ -259,8 +302,16 @@ ggplot(data = Easteng_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in the East of England
 
-South West
+```{r}
+Easteng_multreg <- lm(Reform_share ~ LeavePct, data = Easteng_results)
+
+ tidy(Easteng_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# South West
 
 ```{r}
 SW_results <- ENG_WLS_results |>
@@ -285,8 +336,17 @@ ggplot(data = SW_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share the South West
 
-South East
+```{r}
+SW_multreg <- lm(Reform_share ~ LeavePct, data = SW_results)
+
+ tidy(SW_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+
+# South East
 
 ```{r}
 SE_results <- ENG_WLS_results |>
@@ -311,8 +371,16 @@ ggplot(data = SE_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in the South East
 
-London
+```{r}
+SE_multreg <- lm(Reform_share ~ LeavePct, data = SE_results)
+
+ tidy(SE_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# London
 
 ```{r}
 London_results <- ENG_WLS_results |>
@@ -337,8 +405,16 @@ ggplot(data = London_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   ) +
   theme_minimal()
 ```
+Regression model between Reform and leave vote share in London
 
-Wales
+```{r}
+London_multreg <- lm(Reform_share ~ LeavePct, data = London_results)
+
+ tidy(London_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+# Wales
 
 ```{r}
 WLS_results <- ENG_WLS_results |>
@@ -364,47 +440,16 @@ ggplot(data = WLS_results, mapping = aes(x = LeavePct, y = Reform_share)) +
   theme_minimal()
 ```
 
-
-
-Multiple Regression Model
-
-
+Regression model between Refrom and leave vote share in Wales
 
 ```{r}
-Region_multreg <- lm(LeavePct ~ Reform_share + Lab_share + LD_share + Green_share + Con_share, data = Yorkshire_results)
+WLS_multreg <- lm(Reform_share ~ LeavePct, data = WLS_results)
 
- tidy(Region_multreg) |>
+ tidy(WLS_multreg) |>
      knitr::kable(digits = 3)
 ```
 
 
-
-```{r}
-Reform_multreg <- lm(LeavePct ~ Reform_share + Con_share + Green_share + LD_share + Lab_share + PC_share, data = ENG_WLS_results)
-tidy(Region_multreg) |>
-     knitr::kable(digits = 3)
-```
-
-
-```{r}
-Reform_multreg <- lm(Reform_share ~ LeavePct, data = ENG_WLS_results)
-summary(Reform_multreg)
-```
-
-```{r}
-London_multreg <- lm(Reform_share ~ LeavePct, data = London_results)
-```
-```{r}
-NW_multreg <- lm(Reform_share ~ LeavePct, data = NW_results)
-
-NE_multreg <- lm(Reform_share ~ LeavePct, data = NE_results)
-
-York_multreg <- lm(Reform_share ~ LeavePct, data = Yorkshire_results)
-
-SW_multreg <- lm(Reform_share ~ LeavePct, data = SW_results)
-
-SE_multreg <- lm(Reform_share ~ LeavePct, data = SE_results)
-```
 
 
 Mean Vote Share
@@ -418,32 +463,30 @@ means_table <- ENG_WLS_results |>
          "Mean Leave Vote Share" = mean_LeavePct,
          "Mean Reform Vote Share" = mean_Reform_share) |>
      knitr::kable(digits = 3) 
- 
 ```
 
 
 ## Data Interpretation
 
-We can interpret from the regression model, that we can very confident that there is a relationship between vote leave percentage and the vote share for Reform UK. The regression model shows a p-value of approximately 0 for Reform vote share and when holding all other major parties vote share constant. Having a coefficient of around 0.9 indicating that indicating that for every percent increase in vote leave, the Reform vote share will increase by an average of around 0.9%.
+We can interpret from the regression model for all constituencies in England and Wales, that we can very confident that there is a relationship between the vote share for Reform UK and the vote share for leave. The regression model shows a p-value of approximately 0 for leave vote share. The model shows a coefficient of around 0.498 for leave percent, indicating that indicating that for every percent increase in Reform vote share, the leave vote share increases by an average of around 0.498%. We can see this in the plot between the vote leave vote share and Reform vote share as it has a clear positive curve. This positive correlation from the regression model and plot support the hypothesis that areas that had a higher leave vote share have a higher Reform UK vote share.
 
-We can see this in the plot between the vote leave vote share and Reform vote share as it has a clear positive curve. This supports the hypothesis that areas that had a higher vote share.
+This relationship also appears in the regression models for each individual region, with all except Wales and Northeast England having p-values of 0 or near 0. Even Wales and Northeast, with p-values of 0.03 and .013 respectively, we can be very confident that there is a relationship between Reform and leave vote share, albeit with slightly less confidence than the other regions. The region regression models show how the relationship between Reform and leave vote share across English and Welsh constituencies is consistent across each region with a high degree of confidence.
 
 While the data supports the hypothesis that areas that largely voted leave had a positive relationship with Reform UK vote share, I don't believe they have a casual relationship. First, there could be confounding variables that could be affecting how people voted, especially considering how there is a 8 year gap between the referendum and the general election. For example, voters attitudes could have changed with factors such as economic trends and social issues that could be altering the election outcomes. Another possible confounder is that many Reform UK voters simply voted for Reform on issues outside those relating to Brexit such as immigration and the relationship with the EU.
 
 ## Conlusion
 
-In conclusion, the data supports the hypothesis that there is a positive correlation between Reform UK and the Conservative vote share with leave vote share. It also supports the hypothesis that there is a negative correlation between areas that vote leave and Liberal Democrats and Greens. The hypothesis was most supported by the Greens and Reform data as they had the strongest relationships with vote leave. The hypothesis that Labour vote share wouldn't have a meaningful relationship with vote lave was not supported by the data as they had a statically significant negative correlation with vote leave. If I had more resources and time, I would add in data from the 2019 general election to see if there is there any patterns in party vote share and vote leave. Also, I would analyze the other major parties such as the Conservatives and Labour to see if there is a relationship between their vote shares and the Brexit referendum. 
+In conclusion, the data supports the hypothesis that there is a positive correlation between Reform UK and leave vote share across English and Welsh constituencies. This relationship is also supported from data in each respective region, with the data having a high degree of confidence that there is a postive relationship between Reform and leave vote share. However, from this data, we can't for sure establish a casual relationship between the two as there are many confounding variables that could be affecting the data. Further research on this topic could explore the effect of other varibles, such as economic conditions between each election and voter demographic patterns. If I had more resources and time, I would add in data from the 2019 general election to see if there is there any patterns in party vote share and vote leave. Also, I would analyze the other major parties such as the Conservatives and Labour to see if there is a relationship between their vote shares and the Brexit referendum. 
 
 
 ## Apendix
+
+While making this project, I did explore the relationship between vote leave and other parties which you can see below.
 
 The Conservatives ran on similar issues to Reform UK on reducing immigration with some members arguing for the withdraw from European institutions, although to a lesser extent and more moderate. Many of their members also campaigned for leaving the EU during the referendum, which, like Reform UK, would appeal to areas that largely voted to leave the EU.
 
 The Liberal Democrats and Greens, on the other hand, campaigned for Remain during the referendum and during the 2024 election supported the UK rejoining EU institutions and eventually rejoining the EU. These party positions would have the opposite effect of Reform UK and the Conservatives in constituencies that largely voted for leave, with those constituencies not having much support for the Liberal Democrats. Instead, the Liberal Democrats and Greens pro-EU policies would appeal to areas that had a lower share that voted leave.
 
-From the multiple regression model, it appears that the correlation between Reform UK vote share and vote leave percent is stronger than the relationship between the Conservative vote share and vote leave percent. This is apparent from the Reform share coefficient being around 1.16 which indicates that the average increase in Reform vote share is around 1.16% for each percent increase in vote leave share holding Conservative vote share fixed. In comparison, the Conservative vote share coefficient is only around 0.22, indicating that the average increase in Conservative vote share is around 0.22% for each percent increase in the share for vote leave holding Reform UK vote share fixed. Reform UK having a stronger positive relationship can be seen in the plots as clear positive curve while the Conservative plot has a clear positive slope until around the 50% vote leave mark where it then remains mostly flat.
-
-For the Liberal Democrats and Green multiple regression, it appears that there is a negative correlation between their vote share and leave vote share. The correlation appears to be stronger for the Greens, having a coefficient around -1.05, indicating that the average decrease in Green vote share is around 1.05% for every percent increase in leave vote share holding Liberal Democrat vote share. The Liberal Democrats have a weaker, but still significant coefficient of -0.304, indicating that the average decrease in Liberal Democratic vote share is around 0.304% for every percent increase in leave vote share holding Green vote share. This relationship is apparent in the plots as Green plot appears to have a more consistent negative slope compared to the Liberal Democrat one, which, while having an overall negative slope, has more of a bell-shaped curve.
 
 
 2024 Conservative Vote Share and Vote Leave Plot
@@ -468,6 +511,11 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Con_share)) +
   ) +
   theme_minimal()
 ```
+```{r}
+Con_multreg <- lm(Con_share ~ LeavePct, data = ENG_WLS_results)
+  tidy(Con_multreg) |>
+     knitr::kable(digits = 3)
+```
 
 2024 Labour Vote Share and Vote Leave Plot
 
@@ -490,6 +538,11 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Lab_share)) +
     size = 3, color = "gray20", fontface = "italic"
   ) +
   theme_minimal()
+```
+```{r}
+Lab_multreg <- lm(Lab_share ~ LeavePct, data = ENG_WLS_results)
+  tidy(Lab_multreg) |>
+     knitr::kable(digits = 3)
 ```
 
 2024 Liberal Democrats Vote Share and Vote Leave Plot
@@ -514,6 +567,13 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = LD_share)) +
   ) +
   theme_minimal()
 ```
+```{r}
+LD_multreg <- lm(LD_share ~ LeavePct, data = ENG_WLS_results)
+  tidy(LD_multreg) |>
+     knitr::kable(digits = 3)
+```
+
+
 
 2024 Green Vote Share and Vote Leave Plot
 
@@ -538,11 +598,9 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Green_share)) +
   theme_minimal()
 ```
 
-Multiple Regression Model for Other Parties
-
 ```{r}
-Reform_Con_multreg <- lm(LeavePct ~ Reform_share + Con_share, data = ENG_WLS_results)
-  tidy(Reform_Con_multreg) |>
+Green_multreg <- lm(Green_share ~ LeavePct, data = ENG_WLS_results)
+  tidy(Green_multreg) |>
      knitr::kable(digits = 3)
 ```
 
@@ -554,10 +612,3 @@ https://commonslibrary.parliament.uk/research-briefings/cbp-10009/
 Dr. Henretty, 2016 Brexit referendum estimates on 2024 boundaries
 https://docs.google.com/spreadsheets/d/1mtph-ml7CYVoeEUIc1g_IbOvbiZMa_ezRGQlHQoCpF4/edit?pli=1&gid=341382343#gid=341382343
 
-
-```{r}
-LD_Green_multreg <- lm(LeavePct ~ LD_share + Green_share, data = ENG_WLS_results)
-
- tidy(LD_Green_multreg) |>
-     knitr::kable(digits = 3)
-```
