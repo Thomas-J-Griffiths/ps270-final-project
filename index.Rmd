@@ -16,7 +16,7 @@ This question is important because the Brexit referendum was a hugely consequent
 
 ## Data Organization
 
-The data for this project came from Dr. Henretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in all respective constituency. The independent variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK. The study has a difference-in-difference design as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after design because we aren't introducing an intervening treatment variable. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences. The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. 
+The data for this project came from Dr. Hanretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in all respective constituency. The independent variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK. The study has a difference-in-difference design as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after design because we aren't introducing an intervening treatment variable. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences. The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. 
 
 The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK and in the 2024 general election and if the regions that had higher leave vote share also have a higher Reform vote share. It will also be supported if there is a positive relationship between Reform and leave share between each region.
 
@@ -69,6 +69,32 @@ Lab_share = Lab / `Valid votes`
 
 ## Data
 
+## Reform Vote Share Summarization Histogram
+
+```{r}
+ENG_WLS_results |>
+  filter(Reform_share > 0) |>
+  ggplot(data = ENG_WLS_results, mapping = aes(x = Reform_share)) +
+  geom_histogram(color = "white", fill = "turquoise4", binwidth = 
+              .025) +
+   labs(
+    x = "Refrom Vote Share",
+    y = "Constituencies",
+  title = "Reform Vote Share Arcoss Constituencies (England and Wales)"
+  ) +
+   annotate(
+    "text", 
+    x = Inf, y = -Inf, 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
+    hjust = 1, vjust = -.25, 
+    size = 3, color = "gray20", fontface = "italic"
+  ) +
+  theme_minimal()
+  
+  
+```
+
+
 # England and Wales
 
 2024 Reform Vote Share and Vote Leave Plot for England and Wales
@@ -87,7 +113,7 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -124,7 +150,7 @@ ggplot(data = NE_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -159,7 +185,7 @@ ggplot(data = NW_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -193,7 +219,7 @@ ggplot(data = Yorkshire_results, mapping = aes(x = LeavePct, y = Reform_share)) 
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -228,7 +254,7 @@ ggplot(data = Eastmid_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -262,7 +288,7 @@ ggplot(data = Westmid_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -296,7 +322,7 @@ ggplot(data = Easteng_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -330,7 +356,7 @@ ggplot(data = SW_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -365,7 +391,7 @@ ggplot(data = SE_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -399,7 +425,7 @@ ggplot(data = London_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -433,7 +459,7 @@ ggplot(data = WLS_results, mapping = aes(x = LeavePct, y = Reform_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -505,7 +531,7 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Con_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -533,7 +559,7 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Lab_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -561,7 +587,7 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = LD_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -591,7 +617,7 @@ ggplot(data = ENG_WLS_results, mapping = aes(x = LeavePct, y = Green_share)) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
-    label = "Sources: Dr Henretty, House of Commons Library", 
+    label = "Sources: Dr Hanretty, House of Commons Library", 
     hjust = 1, vjust = -.25, 
     size = 3, color = "gray20", fontface = "italic"
   ) +
@@ -606,9 +632,9 @@ Green_multreg <- lm(Green_share ~ LeavePct, data = ENG_WLS_results)
 
 Sources
 
-House of Commons Library, General Election 2024 Results
+House of Commons Library, General Election 2024 Results, September 2024
 https://commonslibrary.parliament.uk/research-briefings/cbp-10009/
 
-Dr. Henretty, 2016 Brexit referendum estimates on 2024 boundaries
+Dr. Hanretty, 2016 Brexit referendum estimates on 2024 boundaries, 2024
 https://docs.google.com/spreadsheets/d/1mtph-ml7CYVoeEUIc1g_IbOvbiZMa_ezRGQlHQoCpF4/edit?pli=1&gid=341382343#gid=341382343
 
