@@ -8,17 +8,17 @@ output:
 ---
 ## Introduction
 
-During the 2024 general election in the UK, Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU in the Brexit Referendum while discouraging people that voted "Remain" from voting for them as it would go against their preferences stay more aligned with the EU. It would also appeal to blue-collar areas in northern England whom many felt
+Is there a relationship between how people voted in the 2016 Brexit Referendum and how much people voted for Reform UK in the 2024 UK general election? For this question, I hypothesis that constituencies and regions that had a higher vote share for leave in the Brexit Referendum had a higher vote share for the Reform UK in the 2024 general election.
 
-Is there a relationship between how people voted in the 2016 Brexit Referendum and how much people voted for Reform UK in the 2024 UK general election? For this question, I hypothesis that constituencies and regions that had a higher vote share for leave in the Brexit Referendum had a higher vote share for the Reform UK in the 2024 general election and that regions that had a higher mean leave vote share will have a higher mean Reform UK vote share.
+During the 2024 general election in the UK, Reform UK (formally the Brexit Party) ran on a platform of limiting immigration and removing Britain from certain European institutions which would appeal to areas that voted to leave the EU in the Brexit Referendum while discouraging people that voted "Remain" from voting for them as it would go against their preferences to stay aligned with the EU.
 
-This question is important because the Brexit referendum was a hugely consequential election in the UK and Europe as a whole, beginning the process of the UK leaving the European Union. As such, its important to study how voters the voted leave in the referendum voted in subsequent elections to get a better understanding of the British electorate and if issues relating to Brexit could still be affecting British politics.  
+This research question is interesting because the Brexit referendum was a hugely consequential election in the UK and Europe as a whole, beginning the process of the UK leaving the European Union that had massive ramifications for British and European politics. As such, its important to study how voters the voted leave in the referendum voted in subsequent elections to get a better understanding of the British electorate and if issues relating to Brexit could still be affecting British politics.
 
 ## Data Organization
 
-The data for this project came from Dr. Hanretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in all respective constituency. The independent variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular the party vote share for Reform UK. The study has a difference-in-difference design as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after design because we aren't introducing an intervening treatment variable. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences. The explanatory variable for this project are the constituencies of England and Wales. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. 
+The data for this project came from Dr. Hanretty, who created a model that estimated how each constituency (post-2023 borders) voted in the Brexit referendum using constituency-level estimates. The 2024 general election data came from the House of Commons Library which collecting all the voting data for each constituency by adding up the voting data from each precinct in each respective constituency. The independent.explanatory variable for this project are the elections, specifically between the 2016 referendum and the 2024 general election. The dependent variable is how each constituency voted in each party and in particular, the party vote share for Reform UK and how it compares to the Brexit vote share. The study has a difference-in-difference design as it is analyzing data collected from multiple points in time, in this case being the referendum in 2016 and the general election in 2024. It isn't a before-and-after design because we aren't introducing an intervening treatment variable. The outcome variable is the vote share for leave in the Brexit Referendum and Reform UK vote share in each constituency and region in the 2024 general election. This project will only look at constituencies in England and Wales as the party systems in Scotland and Northern Ireland have significant differences.
 
-The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK and in the 2024 general election and if the regions that had higher leave vote share also have a higher Reform vote share. It will also be supported if there is a positive relationship between Reform and leave share between each region.
+The hypothesis would be supported if there is a positive correlation between the vote share of leave in the Brexit Referendum and the vote share of Reform UK in the 2024 general election across constituencies and regions in England and Wales.
 
 
 ## Packages Used 
@@ -37,7 +37,6 @@ Reading Data Sets
 X2024_Brexit_Results <- read_csv("data/2024_Brexit_Results.csv")
 
 HoC_GE2024_results_by_constituency <- read_csv("data/HoC-GE2024-results-by-constituency.csv")
-
 
 UK_election_results <- HoC_GE2024_results_by_constituency
 
@@ -69,7 +68,7 @@ Lab_share = Lab / `Valid votes`
 
 ## Data
 
-## Reform Vote Share Summarization Histogram
+## Reform Vote Share Summarization Histogram for England and Wales
 
 ```{r}
 ENG_WLS_results |>
@@ -77,11 +76,20 @@ ENG_WLS_results |>
   ggplot(data = ENG_WLS_results, mapping = aes(x = Reform_share)) +
   geom_histogram(color = "white", fill = "turquoise4", binwidth = 
               .025) +
+  geom_vline(aes(xintercept = mean(Reform_share)),
+             color = "indianred",
+             size = 1.25) +
    labs(
     x = "Refrom Vote Share",
     y = "Constituencies",
   title = "Reform Vote Share Arcoss Constituencies (England and Wales)"
   ) +
+   geom_text(
+    aes(x = mean(Reform_share, na.rm = TRUE), y = 30, label = paste("Mean = ", round(mean(Reform_share, na.rm = TRUE), 3))), 
+    color = "indianred", 
+    size = 3.5, 
+    vjust = -20.5, 
+    hjust = -0.1) +
    annotate(
     "text", 
     x = Inf, y = -Inf, 
@@ -92,6 +100,7 @@ ENG_WLS_results |>
   theme_minimal()
   
   
+
 ```
 
 
@@ -494,25 +503,24 @@ means_table <- ENG_WLS_results |>
 
 ## Data Interpretation
 
-We can interpret from the regression model for all constituencies in England and Wales, that we can very confident that there is a relationship between the vote share for Reform UK and the vote share for leave. The regression model shows a p-value of approximately 0 for leave vote share. The model shows a coefficient of around 0.498 for leave percent, indicating that indicating that for every percent increase in Reform vote share, the leave vote share increases by an average of around 0.498%. We can see this in the plot between the vote leave vote share and Reform vote share as it has a clear positive curve. This positive correlation from the regression model and plot support the hypothesis that areas that had a higher leave vote share have a higher Reform UK vote share.
+We can interpret from the regression model for all constituencies in England and Wales, that we can very confident that there is a relationship between the vote share for Reform UK and the vote share for leave. The regression model shows a p-value of approximately 0 for leave vote share. This is statically singficant as it indicates a high degree of confidence that we can reject the null hypothesis and that there is a relationship between Reform and vote leave. The model shows a coefficient of around 0.498 for leave percent, indicating that indicating that for every percent increase in Reform vote share, the leave vote share increases by an average of around 0.498%. We can see this in the plot between the vote leave vote share and Reform vote share as it has a clear positive curve. This positive correlation from the regression model and plot support the hypothesis that areas that had a higher leave vote share have a higher Reform UK vote share.
 
-This relationship also appears in the regression models for each individual region, with all except Wales and Northeast England having p-values of 0 or near 0. Even Wales and Northeast, with p-values of 0.03 and .013 respectively, we can be very confident that there is a relationship between Reform and leave vote share, albeit with slightly less confidence than the other regions. The region regression models show how the relationship between Reform and leave vote share across English and Welsh constituencies is consistent across each region with a high degree of confidence.
+This relationship also appears in the regression models for each individual region, with all except Wales and Northeast England having p-values of 0 or near 0. Even Wales and Northeast, with p-values of 0.03 and .013 respectively, we can still be very confident that there is a relationship between Reform and leave vote share, albeit with slightly less confidence than the other regions. Like the constituency regression model, the region models are statically significant, showing a similar high degree of confidence that we can reject the null hypothesis and supporting the idea that there is a relationship between Reform and vote leave across all regions. The postive relationship between Reform and vote leave is also apparent across the region plots, with most having a clear postive slope between Reform and leave share.
 
 While the data supports the hypothesis that areas that largely voted leave had a positive relationship with Reform UK vote share, I don't believe they have a casual relationship. First, there could be confounding variables that could be affecting how people voted, especially considering how there is a 8 year gap between the referendum and the general election. For example, voters attitudes could have changed with factors such as economic trends and social issues that could be altering the election outcomes. Another possible confounder is that many Reform UK voters simply voted for Reform on issues outside those relating to Brexit such as immigration and the relationship with the EU.
 
 ## Conlusion
 
-In conclusion, the data supports the hypothesis that there is a positive correlation between Reform UK and leave vote share across English and Welsh constituencies. This relationship is also supported from data in each respective region, with the data having a high degree of confidence that there is a postive relationship between Reform and leave vote share. However, from this data, we can't for sure establish a casual relationship between the two as there are many confounding variables that could be affecting the data. Further research on this topic could explore the effect of other varibles, such as economic conditions between each election and voter demographic patterns. If I had more resources and time, I would add in data from the 2019 general election to see if there is there any patterns in party vote share and vote leave. Also, I would analyze the other major parties such as the Conservatives and Labour to see if there is a relationship between their vote shares and the Brexit referendum. 
+In conclusion, the data supports the hypothesis that there is a positive correlation between Reform UK and leave vote share across English and Welsh constituencies. This relationship is also supported from data in each respective region with the data having a high degree of confidence that there is a positive relationship between Reform and leave vote share. However, from this data, we can't for sure establish a casual relationship between the two as there are many confounding variables that could be affecting the data. Further research on this topic could explore the effect of other variables, such as changes in economic conditions between each election and voter demographic patterns. If I had more resources and time, I would add in data from the 2019 general election to see if there is there any patterns in party vote share and vote leave. Also, I would analyze the other major parties such as the Conservatives and Labour to see if there is a relationship between their vote shares and the Brexit referendum. 
 
 
 ## Apendix
 
-While making this project, I did explore the relationship between vote leave and other parties which you can see below.
+While making this project, I did explore the relationship between vote leave and other parties along with predictions on what their relationship with vote leave would be which you can see below.
 
 The Conservatives ran on similar issues to Reform UK on reducing immigration with some members arguing for the withdraw from European institutions, although to a lesser extent and more moderate. Many of their members also campaigned for leaving the EU during the referendum, which, like Reform UK, would appeal to areas that largely voted to leave the EU.
 
 The Liberal Democrats and Greens, on the other hand, campaigned for Remain during the referendum and during the 2024 election supported the UK rejoining EU institutions and eventually rejoining the EU. These party positions would have the opposite effect of Reform UK and the Conservatives in constituencies that largely voted for leave, with those constituencies not having much support for the Liberal Democrats. Instead, the Liberal Democrats and Greens pro-EU policies would appeal to areas that had a lower share that voted leave.
-
 
 
 2024 Conservative Vote Share and Vote Leave Plot
